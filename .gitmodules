@@ -1,0 +1,4 @@
+[submodule "submodules/testSepa"]
+	path = submodules/testSepa
+	url = git@github.com:altiorodoo/AltiorOdoo.git
+	branch = pruebas
