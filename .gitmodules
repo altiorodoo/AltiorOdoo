@@ -1,0 +1,4 @@
+[submodule "altiorodoo/AltiorOdoo"]
+	path = altiorodoo/AltiorOdoo
+	url = git@github.com:altiorodoo/AltiorOdoo.git
+	branch = pruebas2
