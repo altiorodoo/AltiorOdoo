@@ -1,4 +1,4 @@
-[submodule "altiorodoo/AltiorOdoo"]
-	path = altiorodoo/AltiorOdoo
-	url = git@github.com:altiorodoo/AltiorOdoo.git
+[submodule "altiorodoo/my_module"]
+	path = altiorodoo/my_module
+	url = git@github.com:altiorodoo/my_module.git
 	branch = pruebas2
