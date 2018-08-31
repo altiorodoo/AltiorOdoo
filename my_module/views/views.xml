@@ -41,9 +41,9 @@
    
 
     <!-- Top menu item -->
-    <!--
+    
     <menuitem name="my_module" id="my_module.menu_root"/>
-    -->
+   
     <!-- menu categories -->
     
     <menuitem name="Menu 1" id="my_module.menu_1" parent="my_module.menu_root"/>
