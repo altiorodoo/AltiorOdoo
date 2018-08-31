@@ -7,11 +7,11 @@
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        Long description of module's purpose
+        Módulo de prueba de Adonis
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Adonis",
+    'website': "http://www.notengopaginaweb.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
