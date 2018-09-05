@@ -21,7 +21,7 @@ class AccountInvoice(models.Model):
             usable_mandate = record._get_usable_mandate()
             if usable_mandate:
                 record.sdd_paying_mandate_id = usable_mandate
-                if record.payment_term_id = 7
+                if record.payment.term.id = 7
                     record.pay_with_mandate2(usable_mandate)
                     record.pay_with_mandate3(usable_mandate)
                 else
