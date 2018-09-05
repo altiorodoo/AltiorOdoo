@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
                 record.pay_with_mandate2(usable_mandate)
                 record.pay_with_mandate3(usable_mandate)
                 # else
-                record.pay_with_mandate(usable_mandate)
+                #record.pay_with_mandate(usable_mandate)
 
     def pay_with_mandate(self, mandate):
         """ Uses the mandate passed in parameters to pay this invoice. This function
