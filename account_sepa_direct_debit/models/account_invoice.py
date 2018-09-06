@@ -6,6 +6,17 @@ from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 class AccountInvoice(models.Model):
+
+    @api.model
+    def create(self, vals):
+        move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).create(vals)
+        return move_line
+
+    @api.multi
+    def write(self, vals):
+        move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).write(vals)
+        return move_line
+
     _inherit = 'account.invoice'
 
     sdd_paying_mandate_id = fields.Many2one(comodel_name='sdd.mandate', help="Once this invoice has been paid with Direct Debit, contains the mandate that allowed the payment.", copy=False)
@@ -72,7 +83,7 @@ class AccountInvoice(models.Model):
         payment = self.env['account.payment'].create({'invoice_ids': [(4, self.id, None)],
                                                       'journal_id': payment_journal.id,
                                                       'payment_method_id': payment_method.id,
-                                                      'amount': round(self.residual/2, 2),
+                                                      'amount': self.residual - 2,
                                                       'payment_type': 'inbound',
                                                       'communication': self.number,
                                                       'partner_type': 'customer',
@@ -101,7 +112,7 @@ class AccountInvoice(models.Model):
         payment = self.env['account.payment'].create({'invoice_ids': [(4, self.id, None)],
                                                       'journal_id': payment_journal.id,
                                                       'payment_method_id': payment_method.id,
-                                                      'amount': round(self.residual/2, 2),
+                                                      'amount': self.residual - 2,
                                                       'payment_type': 'inbound',
                                                       'communication': self.number,
                                                       'partner_type': 'customer',
