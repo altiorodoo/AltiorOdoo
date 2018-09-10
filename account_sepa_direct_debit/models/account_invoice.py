@@ -7,15 +7,15 @@ from odoo.exceptions import UserError
 
 class AccountInvoice(models.Model):
 
-    @api.model
-    def create(self, vals):
-        move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).create(vals)
-        return move_line
+    # @api.model
+    # def create(self, vals):
+    #     move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).create(vals)
+    #     return move_line
 
-    @api.multi
-    def write(self, vals):
-        move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).write(vals)
-        return move_line
+    # @api.multi
+    # def write(self, vals):
+    #     move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).write(vals)
+    #     return move_line
 
     _inherit = 'account.invoice'
 
