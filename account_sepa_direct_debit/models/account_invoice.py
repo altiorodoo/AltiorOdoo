@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _, api
+from odoo import fields, models, _
 
 from odoo.exceptions import UserError
 
@@ -33,10 +33,10 @@ class AccountInvoice(models.Model):
             if usable_mandate:
                 record.sdd_paying_mandate_id = usable_mandate
                 # if record.payment.term.id = 7
-                record.pay_with_mandate2(usable_mandate)
-                record.pay_with_mandate3(usable_mandate)
+                #record.pay_with_mandate2(usable_mandate)
+                #record.pay_with_mandate3(usable_mandate)
                 # else
-                #record.pay_with_mandate(usable_mandate)
+                record.pay_with_mandate(usable_mandate)
 
     def pay_with_mandate(self, mandate):
         """ Uses the mandate passed in parameters to pay this invoice. This function
