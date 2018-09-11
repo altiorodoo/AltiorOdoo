@@ -26,17 +26,17 @@ class AccountPayment(models.Model):
         help="Technical field used to inform the end user there is a SDD mandate that could be used to register that payment",
         compute='_compute_usable_mandate',)
 
-    @api.depends('payment_date', 'partner_id', 'company_id')
-    def _compute_usable_mandate(self):
-        """ returns the first mandate found that can be used for this payment,
-        or none if there is no such mandate.
-        """
-        sdd_mandate_obj = self.env['sdd.mandate']
-        for payment in self:
-            payment.sdd_mandate_usable = bool(sdd_mandate_obj._get_usable_mandate(
-                payment.company_id.id or self.env.user.company_id.id,
-                payment.partner_id.id,
-                payment.payment_date))
+    # @api.depends('payment_date', 'partner_id', 'company_id')
+    # def _compute_usable_mandate(self):
+    #     """ returns the first mandate found that can be used for this payment,
+    #     or none if there is no such mandate.
+    #     """
+    #     sdd_mandate_obj = self.env['sdd.mandate']
+    #     for payment in self:
+    #         payment.sdd_mandate_usable = bool(sdd_mandate_obj._get_usable_mandate(
+    #             payment.company_id.id or self.env.user.company_id.id,
+    #             payment.partner_id.id,
+    #             payment.payment_date))
 
     def generate_xml(self, company_id, required_collection_date):
         """ Generates a SDD XML file containing the payments corresponding to this recordset,
