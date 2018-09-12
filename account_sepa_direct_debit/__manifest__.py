@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': "SEPA Direct Debit Adonis",
+    'name': "Adonis SEPA Direct Debit",
 
     'summary': "Collect payments from your customers through SEPA direct debit.",
 
     'description': """
         This module enables the generation of SEPA Direct Debit (SDD)-compliant XML files (consistent
-        with pain.008.001.02 specification)  ADONIS to send to your bank in order to
+        with pain.008.001.02 specification) to send to your bank in order to
         collect a set of payments.
 
         To be elligible for this payment method, a customer must have first

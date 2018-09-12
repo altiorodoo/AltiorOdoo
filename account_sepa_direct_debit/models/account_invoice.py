@@ -6,17 +6,6 @@ from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 class AccountInvoice(models.Model):
-
-    # @api.model
-    # def create(self, vals):
-    #     move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).create(vals)
-    #     return move_line
-
-    # @api.multi
-    # def write(self, vals):
-    #     move_line = super(AccountMoveLine, self.with_context(check_move_validity=False)).write(vals)
-    #     return move_line
-
     _inherit = 'account.invoice'
 
     sdd_paying_mandate_id = fields.Many2one(comodel_name='sdd.mandate', help="Once this invoice has been paid with Direct Debit, contains the mandate that allowed the payment.", copy=False)
@@ -32,10 +21,6 @@ class AccountInvoice(models.Model):
             usable_mandate = record._get_usable_mandate()
             if usable_mandate:
                 record.sdd_paying_mandate_id = usable_mandate
-                # if record.payment.term.id = 7
-                #record.pay_with_mandate2(usable_mandate)
-                #record.pay_with_mandate3(usable_mandate)
-                # else
                 record.pay_with_mandate(usable_mandate)
 
     def pay_with_mandate(self, mandate):
@@ -56,63 +41,6 @@ class AccountInvoice(models.Model):
                                                       'journal_id': payment_journal.id,
                                                       'payment_method_id': payment_method.id,
                                                       'amount': self.residual,
-                                                      'payment_type': 'inbound',
-                                                      'communication': self.number,
-                                                      'partner_type': 'customer',
-                                                      'partner_id': mandate.partner_id.commercial_partner_id.id,
-                                                      'payment_date': self.date_due or self.date_invoice})
-        payment.post()
-        payment._register_on_mandate(mandate)
-
-        return payment
-    
-    def pay_with_mandate2(self, mandate):
-        """ Uses the mandate passed in parameters to pay this invoice. This function
-        updates the state of the mandate accordingly if it was of type 'one-off',
-        passes the invoice in 'paid' state and generates the corresponding payment
-        object, setting its state to 'posted'.
-        """
-        date_upper_bound = mandate.end_date or self.date_invoice
-        if not(mandate.start_date <= self.date_invoice <= date_upper_bound):
-            raise UserError(_("You cannot pay an invoice with a mandate that does not cover the moment when it was issued."))
-
-        payment_method = self.env.ref('account_sepa_direct_debit.payment_method_sdd')
-        payment_journal = mandate.payment_journal_id
-
-        #This code is only executed if the mandate may be used (thanks to the previous UserError)
-        payment = self.env['account.payment'].create({'invoice_ids': [(4, self.id, None)],
-                                                      'journal_id': payment_journal.id,
-                                                      'payment_method_id': payment_method.id,
-                                                      'amount': self.residual - 2,
-                                                      'payment_type': 'inbound',
-                                                      'communication': self.number,
-                                                      'partner_type': 'customer',
-                                                      'partner_id': mandate.partner_id.commercial_partner_id.id,
-                                                      'payment_date': self.date_due or self.date_invoice})
-        payment.post()
-        payment._register_on_mandate(mandate)
-
-        return payment
-
-
-    def pay_with_mandate3(self, mandate):
-        """ Uses the mandate passed in parameters to pay this invoice. This function
-        updates the state of the mandate accordingly if it was of type 'one-off',
-        passes the invoice in 'paid' state and generates the corresponding payment
-        object, setting its state to 'posted'.
-        """
-        date_upper_bound = mandate.end_date or self.date_invoice
-        if not(mandate.start_date <= self.date_invoice <= date_upper_bound):
-            raise UserError(_("You cannot pay an invoice with a mandate that does not cover the moment when it was issued."))
-
-        payment_method = self.env.ref('account_sepa_direct_debit.payment_method_sdd')
-        payment_journal = mandate.payment_journal_id
-
-        #This code is only executed if the mandate may be used (thanks to the previous UserError)
-        payment = self.env['account.payment'].create({'invoice_ids': [(4, self.id, None)],
-                                                      'journal_id': payment_journal.id,
-                                                      'payment_method_id': payment_method.id,
-                                                      'amount': self.residual - 2,
                                                       'payment_type': 'inbound',
                                                       'communication': self.number,
                                                       'partner_type': 'customer',
